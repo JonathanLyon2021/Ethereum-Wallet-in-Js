@@ -214,8 +214,25 @@ app.post("/create", (req, res) => {
 		let gas = 21000;
 
 		//  TODO: broadcast the transaction to the network
+		wallet.sendTransaction({
+			to: recipient,
+			value: ethers.utils.parseEther(amount),
+			gasLimit: gas * gasPrice,
+	})
+		.then((transaction) => {
+			drawView(res, "send", {
+				transactionHash: transaction.hash, 
+				error: undefined,
+			});
+		})
+		.catch((err) => {
+			console.log(err);
+			drawView(res, "send", {
+				transactionHash: undefined,
+				error: err.message,
+			});
+		});
 	});
-
 	// Preset helper functions ===
 
 	function drawView(res, view, data) {

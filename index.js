@@ -155,7 +155,9 @@ app.post("/create", (req, res) => {
 
 	app.post("/balance", (req, res) => {
 		//  TODO: fetch user data (filename and password)
-
+	let recipient = req.body.recipient;
+	let password = req.body.password;
+		
 		//  read the file
 		fs.readFile(
 			walletDirectory + filename,
